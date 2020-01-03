@@ -1,0 +1,19 @@
+backend:
+  name: github
+  repo: vai0/repo-css-dep-issue
+
+media_folder: static/img
+public_folder: /img
+
+collections:
+  - name: "standard landing page"
+    label: "standard-lp"
+    folder: "content/standard-lp"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    editor:
+      preview: true
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Subtitle", name: "subtitle", widget: "string" }
+      - { label: "Paragraph", name: "paragraph", widget: "string" }
