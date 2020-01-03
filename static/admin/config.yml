@@ -6,8 +6,8 @@ media_folder: static/img
 public_folder: /img
 
 collections:
-  - name: "standard landing page"
-    label: "standard-lp"
+  - name: "standard-lp"
+    label: "standard landing page"
     folder: "content/standard-lp"
     create: true
     slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
