@@ -29,7 +29,7 @@ module.exports = {
     "gatsby-transformer-json",
     "gatsby-transformer-yaml",
     {
-      resolve: "@vai0/gatsby-plugin-netlify-cms",
+      resolve: "gatsby-plugin-netlify-cms",
       htmlTitle: "Bifrost Content Manager",
       options: {
         enableIdentityWidget: false,
@@ -40,11 +40,26 @@ module.exports = {
             modules: [path.resolve(__dirname, "src"), "node_modules"],
           }
 
-          config.plugins.push(
-            plugins.define({
-              PRERENDER_NAVBAR: JSON.stringify(false),
-            })
-          )
+          // This gets around the error below that appears on `gatsby develop`
+          // and `gatsby build`, due to gatsby-specific stuff (e.g., Link,
+          // useStaticQuery, graphql) imported in netlify cms preview components
+
+          // =======================================================
+
+          // ...
+          // Module parse failed: Unexpected token (25:4) You may need
+          // an appropriate loader to handle this file type, currently no
+          // loaders are configured to process this file. See
+          // https://webpack.js.org/concepts#loaders
+          // |
+          // |   return (
+          // >     <React.Fragment>
+          // |       {finalData && render(finalData)} |       {!finalData &&
+          // <div>Loading (StaticQuery)</div>}
+          //
+          //  @ ./src/components/StandardLp.js 13:0-30 34:25-29
+          //  @ ./src/cms/previews/StandardLpPreview.js
+          // ...
 
           config.module.rules.push({
             test: /gatsby\/cache-dir.*\.js$/,
@@ -94,8 +109,8 @@ module.exports = {
     {
       resolve: "gatsby-plugin-robots-txt",
       options: {
-        host: "https://www.memsql.com",
-        sitemap: "https://www.memsql.com/sitemap.xml",
+        host: "https://www.blah.com",
+        sitemap: "https://www.blah.com/sitemap.xml",
         policy: [{ userAgent: "*", allow: "/", disallow: ["/assets/"] }],
       },
     },
